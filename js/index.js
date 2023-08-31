@@ -1,0 +1,54 @@
+const loadCategories = async () =>{
+    const res = await fetch('https://openapi.programming-hero.com/api/videos/categories');
+    const data = await res.json();
+    setCategories(data);
+}
+const setCategories = data =>{
+    const categoryContainer = document.getElementById('category-container');
+    data.data.forEach(category => {
+        const div = document.createElement('div')
+        div.innerHTML = `
+                <button 
+                    onclick="loadCard('${category.category_id}')"
+                    class="btn btn-sm md:btn-md bg-gray-300 rounded active:bg-[#FF1F3D] text-color-black active:text-white text-base md:text-lg normal-case">
+                    ${category.category}
+                </button>
+        `;
+        categoryContainer.appendChild(div);
+    })
+}
+const loadCard = async(id) =>{
+    const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`);
+    const data = await res.json();
+    setCard(data);
+}
+const setCard = data =>{
+    const cardContainer = document.getElementById('card-container');
+    cardContainer.textContent = '';
+    data.data.forEach(card => {
+        const div = document.createElement('div')
+        const hour = card.others.posted_date / 60;
+        const minute = card.others.posted_date % 60;
+        div.innerHTML = `
+            <div class="card card-compact bg-base-100 shadow">
+                <figure class="relative">
+                    <img class="md:h-52" src="${card.thumbnail}" alt="Thumbnail" />
+                    <p class="bg-[#171717] absolute right-4 bottom-3 rounded-md p-1 text-[10px] text-white ${card.others.posted_date !== '' ? '' : 'hidden'}">
+                        ${Math.trunc(hour)} hrs ${minute} minute
+                    </p>
+                </figure>
+                <div class="flex mt-3 gap-3 items-start p-2">
+                <div class="w-1/6"><img class="w-12 h-12 rounded-full" src="${card.authors[0]?.profile_picture}" alt=""></div>
+                <div class="w-5/6">
+                    <h2 class="text-color-black text-base font-bold">${card.title}</h2>
+                    <h3 class="text-sm text-gray-500">${card.authors[0]?.profile_name} <img class="${card.authors[0]?.verified == true ? 'inline-block' :'hidden'} w-4" src="./images/fi_10629607.png" alt=""></h3>
+                    <p class="text-sm text-gray-500">${card.others.views}</p>
+                </div>
+                </div>
+            </div>
+        `;
+        cardContainer.appendChild(div);
+    })
+}
+loadCard('1000')
+loadCategories()
