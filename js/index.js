@@ -25,7 +25,16 @@ const loadCard = async(id) =>{
 const setCard = data =>{
     const cardContainer = document.getElementById('card-container');
     cardContainer.textContent = '';
-    data.data.forEach(card => {
+    const cards = data.data;
+    const empty = document.getElementById('empty-container');
+    if(!cards[0]){
+        empty.classList.remove('hidden');
+    }
+    else{
+        empty.classList.add('hidden');
+    }
+    cardContainer.classList.add('grid','grid-cols-1','md:grid-cols-2','lg:grid-cols-4','gap-6');
+    cards.forEach(card => {
         const div = document.createElement('div')
         const hour = card.others.posted_date / 60;
         const minute = card.others.posted_date % 60;
@@ -41,7 +50,7 @@ const setCard = data =>{
                 <div class="w-1/6"><img class="w-12 h-12 rounded-full" src="${card.authors[0]?.profile_picture}" alt=""></div>
                 <div class="w-5/6">
                     <h2 class="text-color-black text-base font-bold">${card.title}</h2>
-                    <h3 class="text-sm text-gray-500">${card.authors[0]?.profile_name} <img class="${card.authors[0]?.verified == true ? 'inline-block' :'hidden'} w-4" src="./images/fi_10629607.png" alt=""></h3>
+                    <h3 class="text-sm text-gray-500">${card.authors[0]?.profile_name} <img class="${card.authors[0]?.verified == true ? 'inline-block' :'hidden'} w-4" src="./images/verified.png" alt=""></h3>
                     <p class="text-sm text-gray-500">${card.others.views}</p>
                 </div>
                 </div>
