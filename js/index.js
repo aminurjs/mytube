@@ -36,14 +36,15 @@ const setCard = data =>{
     cardContainer.classList.add('grid','grid-cols-1','md:grid-cols-2','lg:grid-cols-4','gap-6');
     cards.forEach(card => {
         const div = document.createElement('div')
-        const hour = card.others.posted_date / 60;
-        const minute = card.others.posted_date % 60;
+        const minutesAll = card.others.posted_date / 60;
+        const hours = minutesAll / 60;
+        const minutes = minutesAll % 60;
         div.innerHTML = `
             <div class="card card-compact bg-base-100 shadow">
                 <figure class="relative">
                     <img class="md:h-52" src="${card.thumbnail}" alt="Thumbnail" />
                     <p class="bg-[#171717] absolute right-4 bottom-3 rounded-md p-1 text-[10px] text-white ${card.others.posted_date !== '' ? '' : 'hidden'}">
-                        ${Math.trunc(hour)} hrs ${minute} minute
+                        ${Math.trunc(hours)} hrs ${Math.trunc(minutes)} minute
                     </p>
                 </figure>
                 <div class="flex mt-3 gap-3 items-start p-2">
