@@ -10,7 +10,7 @@ const setCategories = data =>{
         div.innerHTML = `
                 <button 
                     onclick="loadCard('${category.category_id}');sortBtn('${category.category_id}') "
-                    class="btn btn-sm md:btn-md bg-gray-300 rounded text-color-black active:text-white text-base md:text-lg normal-case">
+                    class="btn btn-sm md:btn-md bg-gray-300 rounded text-color-black text-base md:text-lg normal-case">
                     ${category.category}
                 </button>
         `;
