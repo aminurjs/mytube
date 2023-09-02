@@ -55,7 +55,7 @@ const setCard = (data, sort) =>{
                 <figure class="relative">
                     <img class="md:h-52 w-full" src="${card.thumbnail}" alt="Thumbnail" />
                     <p class="bg-[#171717] absolute right-4 bottom-3 rounded-md p-1 text-[10px] text-white ${card.others.posted_date !== '' ? '' : 'hidden'}">
-                        ${Math.trunc(hours)} hrs ${Math.trunc(minutes)} minute
+                        ${Math.trunc(hours)} hrs ${Math.trunc(minutes)} min ago
                     </p>
                 </figure>
                 <div class="flex mt-3 gap-3 items-start p-2">
